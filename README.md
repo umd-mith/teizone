@@ -19,7 +19,7 @@ s.save()
 Or if you'd rather not overwrite the old file:
 
 ```python
-s.save(/path/to/some/other/file.xml')
+s.save('/path/to/some/other/file.xml')
 ```
 
 If you are wondering why we would want to do such thing it's because 
