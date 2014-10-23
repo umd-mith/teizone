@@ -1,34 +1,70 @@
 #!/usr/bin/env python
 
-import os
-import sys
-
-from urlparse import urljoin
-from os.path import join, abspath, dirname, isfile
-
 from xml.etree import ElementTree as etree
 
-def get_notebooks(tei_data_dir):
-    for filename in os.listdir(tei_data_dir):
-        filename = join(tei_data_dir, filename)
-        if isfile(filename): 
-            yield filename
+TEI = 'http://www.tei-c.org/ns/1.0'
+MITH = 'http://mith.umd.edu/sc/ns1#'
 
-def get_surfaces(path):
-    doc = etree.parse(path)
-    for inc in doc.findall('.//{http://www.w3.org/2001/XInclude}include'):
-        yield urljoin(path, inc.attrib['href'])
-    
+class Surface():
 
-def main():
-    tei_data_dir = sys.argv[1]
-    for notebook_path in get_notebooks(tei_data_dir):
-        for surface in get_surfaces(notebook_path):
-            print surface
+    def __init__(self, path):
+        self.path = path
+        self.doc = etree.parse(path)
+        self.root = self.doc.getroot()
+        self.ulx = int(self.root.get('ulx'))
+        self.uly = int(self.root.get('uly'))
+        self.lrx = int(self.root.get('lrx'))
+        self.lry = int(self.root.get('lry'))
+        self.zones = self.root.findall('.//{%s}zone' % TEI)
+        self._calculate_coordinates()
 
-# /sga/data/tei/ox/ox-ms_abinger_c56/ox-ms_abinger_c56-0011.xml
-# http://shelleygodwinarchive.org/sc/oxford/frankenstein/notebook/a#n=11
+    def save(self, filename=None):
+        f = filename if filename else self.path
+        etree.register_namespace('', TEI)
+        etree.register_namespace('mith', MITH)
+        self.doc.write(f, xml_declaration=True, encoding='utf-8', method='xml')
 
-if __name__ == "__main__":
-    main()
+    def _calculate_coordinates(self):
+
+        # sample type counts from looking at the Frankenstein data
+        #
+        # main: 1005
+        # left_margin: 381
+        # pagination: 360
+        # library: 175
+
+        main = None
+        left_margin = []
+
+        for z in self.zones:
+            z_type = z.get('type')
+            if z_type == "main":
+                main = z
+            if z_type == "left_margin":
+                left_margin.append(z)
+
+        # determine x of left margin if we have zones in the left margin
+        left_margin_x = 0 
+        if len(left_margin) > 0:
+            left_margin_x = int(self.lrx * .20)
         
+        # set coordinates of main zone
+        set(main, 'ulx', left_margin_x)
+        set(main, 'uly', self.uly)
+        set(main, 'lrx', self.lrx)
+        set(main, 'lry', self.lry)
+
+        # set coordinates of left margin zones
+        y = 0
+        margin_height = int(float(self.lry) / len(left_margin))
+        for z in left_margin:
+            set(z, 'ulx', 0)
+            set(z, 'uly', y)
+            set(z, 'lrx', left_margin_x)
+            set(z, 'lry', y + margin_height)
+            y += margin_height
+
+        # set lower-right-y for last zone to the lry of the canvas
+        if len(left_margin) > 0:
+            set(left_margin[-1], 'lry', self.lry, overwrite=True)
+
