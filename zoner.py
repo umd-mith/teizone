@@ -49,22 +49,31 @@ class Surface():
             left_margin_x = int(self.lrx * .20)
         
         # set coordinates of main zone
-        set(main, 'ulx', left_margin_x)
-        set(main, 'uly', self.uly)
-        set(main, 'lrx', self.lrx)
-        set(main, 'lry', self.lry)
+        s(main, 'ulx', left_margin_x)
+        s(main, 'uly', self.uly)
+        s(main, 'lrx', self.lrx)
+        s(main, 'lry', self.lry)
 
         # set coordinates of left margin zones
         y = 0
         margin_height = int(float(self.lry) / len(left_margin))
         for z in left_margin:
-            set(z, 'ulx', 0)
-            set(z, 'uly', y)
-            set(z, 'lrx', left_margin_x)
-            set(z, 'lry', y + margin_height)
+            s(z, 'ulx', 0)
+            s(z, 'uly', y)
+            s(z, 'lrx', left_margin_x)
+            s(z, 'lry', y + margin_height)
             y += margin_height
 
         # set lower-right-y for last zone to the lry of the canvas
         if len(left_margin) > 0:
-            set(left_margin[-1], 'lry', self.lry, overwrite=True)
+            s(left_margin[-1], 'lry', self.lry, overwrite=True)
+
+
+def s(o, prop, val, overwrite=False):
+    """
+    helper to set a coordinate attribute if it isn't already defined, 
+    unless we really want to.
+    """
+    if overwrite or o.get(prop) is None:
+        o.set(prop, str(val))
 
