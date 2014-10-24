@@ -47,27 +47,27 @@ class Surface():
         left_margin_x = 0 
         if len(left_margin) > 0:
             left_margin_x = int(self.lrx * .20)
-        
+       
         # set coordinates of main zone
-        s(main, 'ulx', left_margin_x)
-        s(main, 'uly', self.uly)
-        s(main, 'lrx', self.lrx)
-        s(main, 'lry', self.lry)
+        if main is not None:
+            s(main, 'ulx', left_margin_x)
+            s(main, 'uly', self.uly)
+            s(main, 'lrx', self.lrx)
+            s(main, 'lry', self.lry)
 
         # set coordinates of left margin zones
-        y = 0
-        margin_height = int(float(self.lry) / len(left_margin))
-        for z in left_margin:
-            s(z, 'ulx', 0)
-            s(z, 'uly', y)
-            s(z, 'lrx', left_margin_x)
-            s(z, 'lry', y + margin_height)
-            y += margin_height
-
-        # set lower-right-y for last zone to the lry of the canvas
         if len(left_margin) > 0:
-            s(left_margin[-1], 'lry', self.lry, overwrite=True)
+            y = 0
+            margin_height = int(float(self.lry) / len(left_margin))
+            for z in left_margin:
+                s(z, 'ulx', 0)
+                s(z, 'uly', y)
+                s(z, 'lrx', left_margin_x)
+                s(z, 'lry', y + margin_height)
+                y += margin_height
 
+            # set lower-right-y for last zone to the lry of the canvas
+            s(left_margin[-1], 'lry', self.lry, overwrite=True)
 
 def s(o, prop, val, overwrite=False):
     """
@@ -76,4 +76,3 @@ def s(o, prop, val, overwrite=False):
     """
     if overwrite or o.get(prop) is None:
         o.set(prop, str(val))
-

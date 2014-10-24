@@ -5,17 +5,9 @@ from zoner import Surface, TEI
 from xml.etree import ElementTree as etree
 
 
-def test_coordinates():
+def test_left_margin():
     f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0039.xml'
-
-    # make sure there are no coordinates to start with
-
-    doc = etree.parse(f1)
-    for zone in doc.findall('.//{%s}zone'):
-        assert zone.get('ulx') == None
-        assert zone.get('uly') == None
-        assert zone.get('lrx') == None
-        assert zone.get('lry') == None
+    no_coordinates(f1)
 
     # create and save the surface
 
@@ -63,3 +55,34 @@ def test_coordinates():
     assert left[4].get('uly') == '5680'
     assert left[4].get('lrx') == '1072'
     assert left[4].get('lry') == '7104'
+
+def test_no_margin():
+    f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0005.xml'
+    no_coordinates(f1)
+
+    # create and save the surface
+
+    s = Surface(f1)
+    assert len(s.zones) == 2
+    fh, f2 = tempfile.mkstemp()
+    s.save(f2)
+
+def test_no_main():
+    f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0133.xml'
+    no_coordinates(f1)
+
+    # create and save the surface
+
+    s = Surface(f1)
+    assert len(s.zones) == 1
+    fh, f2 = tempfile.mkstemp()
+    s.save(f2)
+
+def no_coordinates(path):
+    "make sure zone has no coordinates"
+    doc = etree.parse(path)
+    for zone in doc.findall('.//{%s}zone' % TEI):
+        assert zone.get('ulx') == None
+        assert zone.get('uly') == None
+        assert zone.get('lrx') == None
+        assert zone.get('lry') == None
