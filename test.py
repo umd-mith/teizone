@@ -16,10 +16,19 @@ def test_left_margin():
     fh, f2 = tempfile.mkstemp()
     s.guess_coordinates()
     s.save(f2)
-
-    # look at the new file and see that coordinates are set
-
     doc = etree.parse(f2)
+
+    # check pagination zone
+
+    pag = doc.find('{%s}zone[@type="pagination"]' % TEI)
+    assert pag
+    assert pag.get('ulx') == '3594'
+    assert pag.get('uly') == '0'
+    assert pag.get('lrx') == '5364'
+    assert pag.get('lry') == '355'
+
+    # check main zone
+
     main = doc.find('{%s}zone[@type="main"]' % TEI)
     assert main
     assert main.get('ulx') == '1072'
@@ -27,7 +36,7 @@ def test_left_margin():
     assert main.get('lrx') == '5364'
     assert main.get('lry') == '7104'
 
-    # check left margins
+    # check left margin zones
 
     left = doc.findall('{%s}zone[@type="left_margin"]' % TEI)
     assert len(left) == 5

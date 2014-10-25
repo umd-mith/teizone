@@ -70,6 +70,9 @@ class Surface():
         # pagination: 360
         # library: 175
 
+        # TODO: break this up into smaller functions?
+        # TODO: make percentage width of margin and pagination configurable?
+
         main = None
         library = None
         pagination = None
