@@ -8,6 +8,10 @@ MITH = 'http://mith.umd.edu/sc/ns1#'
 class Surface():
     """
 
+    A surface has can have a main zone, a pagination zone and 0 or more
+    left margin zones. This class will assign coordinates to the zones
+    using the coordinates of the enclosing surface and this model.
+
     +--------------------------+
     |                  | PAG | |
     | +------+ +-------------+ |
@@ -63,14 +67,6 @@ class Surface():
         parameter to True.
         """
 
-        # sample type counts from looking at the Frankenstein data
-        #
-        # main: 1005
-        # left_margin: 381
-        # pagination: 360
-        # library: 175
-
-        # TODO: break this up into smaller functions?
         # TODO: make percentage width of margin and pagination configurable?
 
         main = None
@@ -106,9 +102,9 @@ class Surface():
             s(pagination, 'lry', lry , overwrite)
             y = lry
 
-        # set coordinates for library
+        # TODO: where do we place library zone?
         if library is not None:
-            pass
+            pass 
 
         # set coordinates for main
         if main is not None:
