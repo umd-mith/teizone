@@ -13,6 +13,7 @@ on GitHub). If there's interest it could be a bit more general purpose...maybe.
 import zoner
 
 s = zoner.Surface('/path/to/tei/file.xml')
+s.guess_coordinates()
 s.save()
 ```
 
