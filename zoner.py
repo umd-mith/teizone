@@ -6,34 +6,6 @@ TEI = 'http://www.tei-c.org/ns/1.0'
 MITH = 'http://mith.umd.edu/sc/ns1#'
 
 class Surface():
-    """
-
-    A surface has can have a main zone, a pagination zone and 0 or more
-    left margin zones. This class will assign coordinates to the zones
-    using the coordinates of the enclosing surface and this model.
-
-    +--------------------------+
-    |                  | PAG | |
-    | +------+ +-------------+ |
-    | |      | |             | |
-    | |  LM  | |             | |
-    | |      | |             | |
-    | +------+ |             | |
-    | +------+ |             | |
-    | |      | |             | |
-    | |  LM  | |    MAIN     | |
-    | |      | |             | |
-    | +------+ |             | |
-    | +------+ |             | |
-    | |      | |             | |
-    | |  LM  | |             | |
-    | |      | |             | |
-    | +------+ +-------------+ |
-    +--------------------------+
-
-
-    """
-
     def __init__(self, path):
         """
         Create a Surface object by giving the constructor a filename for a 
