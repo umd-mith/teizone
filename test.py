@@ -7,7 +7,7 @@ from xml.etree import ElementTree as etree
 
 def test_left_margin():
     f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0039.xml'
-    no_coordinates(f1)
+    assert_no_coordinates(f1)
 
     # create and save the surface
 
@@ -68,7 +68,7 @@ def test_left_margin():
 
 def test_no_margin():
     f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0005.xml'
-    no_coordinates(f1)
+    assert_no_coordinates(f1)
 
     # create and save the surface
 
@@ -80,7 +80,7 @@ def test_no_margin():
 
 def test_no_main():
     f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0133.xml'
-    no_coordinates(f1)
+    assert_no_coordinates(f1)
 
     # create and save the surface
 
@@ -90,7 +90,7 @@ def test_no_main():
     s.guess_coordinates()
     s.save(f2)
 
-def no_coordinates(path):
+def assert_no_coordinates(path):
     "make sure zone has no coordinates"
     doc = etree.parse(path)
     for zone in doc.findall('.//{%s}zone' % TEI):
