@@ -1,7 +1,7 @@
 import pytest
 import tempfile
 
-from zoner import Surface, TEI
+from teizone import Surface, TEI
 from xml.etree import ElementTree as etree
 
 

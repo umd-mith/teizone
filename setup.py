@@ -14,12 +14,12 @@ class PyTest(Command):
         pytest.main("test.py")
 
 setup(
-    name = 'zoner',
+    name = 'teizone',
     version = '0.0.1',
-    url = 'http://github.com/umd_mith/zoner',
+    url = 'http://github.com/umd_mith/teizone',
     author = 'Ed Summers',
     author_email = 'ehs@pobox.com',
-    py_modules = ['zoner'],
+    py_modules = ['teizone'],
     description = 'Add coordinates to TEI zones.',
     cmdclass = {'test': PyTest},
     tests_require=['pytest'],

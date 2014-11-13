@@ -1,11 +1,11 @@
-zoner 
-=====
+teizone 
+=======
 
-[![Build Status](https://travis-ci.org/umd-mith/zoner.svg)](http://travis-ci.org/umd-mith/zoner)
+[![Build Status](https://travis-ci.org/umd-mith/teizone.svg)](http://travis-ci.org/umd-mith/teizone)
 
-zoner will automatically assign coordinates to [TEI zone elements](http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-zone.html). The coordinates are essentially guesses based on the types of zones. It currently works with [Shelley-Godwin TEI](http://github.com/umd-mith/sga/) (which is also available on GitHub). If there's interest it could be a bit more general purpose...maybe.
+teizone will automatically assign coordinates to [TEI zone elements](http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ref-zone.html). The coordinates are essentially guesses based on the types of zones. It currently works with [Shelley-Godwin TEI](http://github.com/umd-mith/sga/) (which is also available on GitHub). If there's interest it could be a bit more general purpose...maybe.
 
-A surface can have a main zone, a pagination zone and 0 or more left margin zones. zoner will assign coordinates to the zones using the coordinates of the enclosing surface and this kind of model:
+A surface can have a main zone, a pagination zone and 0 or more left margin zones. teizone will assign coordinates to the zones using the coordinates of the enclosing surface and this kind of model:
 
     +--------------------------+
     |                  | PAG | |
@@ -32,9 +32,9 @@ If you are wondering why we would want to make guesses about the positioning of 
 
 ```python
 
-import zoner
+import teizone
 
-s = zoner.Surface('/path/to/tei/file.xml')
+s = teizone.Surface('/path/to/tei/file.xml')
 s.guess_coordinates()
 s.save()
 ```
