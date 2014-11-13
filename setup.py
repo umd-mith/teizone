@@ -22,5 +22,6 @@ setup(
     py_modules = ['zoner'],
     description = 'Add coordinates to TEI zones.',
     cmdclass = {'test': PyTest},
-    tests_require=['pytest']
+    tests_require=['pytest'],
+    license='MIT License'
 )
