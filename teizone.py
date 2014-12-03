@@ -45,6 +45,7 @@ class Surface():
         library = None
         pagination = None
         left_margin = []
+        vertical_margin = 0.05
 
         for z in self.zones:
             z_type = z.get('type')
@@ -62,15 +63,17 @@ class Surface():
         # determine x of left margin if we have zones in the left margin
         left_margin_x = 0 
         if len(left_margin) > 0:
-            left_margin_x = int(self.lrx * .20)
+            left_margin_x = int(self.lrx * .125)
 
         # set coordinates of pagination
         if pagination is not None:
-            ulx = self.lrx - int(self.lrx * .33)
+            ulx = int(self.lrx * .8)
+            lrx = int(self.lrx * .9)
             lry = y + int(self.lry * .05)
+
             s(pagination, 'ulx', ulx, overwrite)
-            s(pagination, 'uly', y, overwrite)
-            s(pagination, 'lrx', self.lrx, overwrite)
+            s(pagination, 'uly', 0, overwrite)
+            s(pagination, 'lrx', lrx, overwrite)
             s(pagination, 'lry', lry , overwrite)
             y = lry
 
@@ -81,9 +84,9 @@ class Surface():
         # set coordinates for main
         if main is not None:
             s(main, 'ulx', left_margin_x, overwrite)
-            s(main, 'uly', y, overwrite)
-            s(main, 'lrx', self.lrx, overwrite)
-            s(main, 'lry', self.lry, overwrite)
+            s(main, 'uly', int(self.lry * .05), overwrite)
+            s(main, 'lrx', int(self.lrx * .875), overwrite)
+            s(main, 'lry', int(self.lry * .95), overwrite)
 
         # set coordinates of left margin zones
         if len(left_margin) > 0:

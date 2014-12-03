@@ -18,23 +18,28 @@ def test_left_margin():
     s.save(f2)
     doc = etree.parse(f2)
 
+    assert s.ulx == 0
+    assert s.uly == 0
+    assert s.lrx == 5364
+    assert s.lry == 7104
+
     # check pagination zone
 
     pag = doc.find('{%s}zone[@type="pagination"]' % TEI)
-    assert pag
-    assert pag.get('ulx') == '3594'
+    assert pag is not None
+    assert pag.get('ulx') == '4291'
     assert pag.get('uly') == '0'
-    assert pag.get('lrx') == '5364'
+    assert pag.get('lrx') == '4827'
     assert pag.get('lry') == '355'
 
     # check main zone
 
     main = doc.find('{%s}zone[@type="main"]' % TEI)
-    assert main
-    assert main.get('ulx') == '1072'
+    assert main is not None
+    assert main.get('ulx') == '670'
     assert main.get('uly') == '355'
-    assert main.get('lrx') == '5364'
-    assert main.get('lry') == '7104'
+    assert main.get('lrx') == '4693'
+    assert main.get('lry') == '6748'
 
     # check left margin zones
 
