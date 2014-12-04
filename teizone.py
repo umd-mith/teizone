@@ -90,17 +90,16 @@ class Surface():
 
         # set coordinates of left margin zones
         if len(left_margin) > 0:
-            margin_height = int((float(self.lry) - y) / len(left_margin))
+            y = int(.05 * self.lry)
+            margin_height = int((.9 / len(left_margin)) * self.lry)
+            lrx = int(.25 * self.lrx)
             for z in left_margin:
+                print y
                 s(z, 'ulx', 0, overwrite)
                 s(z, 'uly', y, overwrite)
-                s(z, 'lrx', left_margin_x, overwrite)
+                s(z, 'lrx', lrx, overwrite)
                 s(z, 'lry', y + margin_height, overwrite)
                 y += margin_height
-
-            # set lower-right-y for last zone to the lry of the canvas
-            s(left_margin[-1], 'lry', self.lry, overwrite=True)
-
 
 def s(o, prop, val, overwrite=False):
     """

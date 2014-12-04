@@ -48,28 +48,28 @@ def test_left_margin():
 
     assert left[0].get('ulx') == '0'
     assert left[0].get('uly') == '355'
-    assert left[0].get('lrx') == '1072'
-    assert left[0].get('lry') == '1704'
+    assert left[0].get('lrx') == '1341'
+    assert left[0].get('lry') == '1633'
 
     assert left[1].get('ulx') == '0'
-    assert left[1].get('uly') == '1704'
-    assert left[1].get('lrx') == '1072'
-    assert left[1].get('lry') == '3053'
+    assert left[1].get('uly') == '1633'
+    assert left[1].get('lrx') == '1341'
+    assert left[1].get('lry') == '2911'
 
     assert left[2].get('ulx') == '0'
-    assert left[2].get('uly') == '3053'
-    assert left[2].get('lrx') == '1072'
-    assert left[2].get('lry') == '4402'
+    assert left[2].get('uly') == '2911'
+    assert left[2].get('lrx') == '1341'
+    assert left[2].get('lry') == '4189'
 
     assert left[3].get('ulx') == '0'
-    assert left[3].get('uly') == '4402'
-    assert left[3].get('lrx') == '1072'
-    assert left[3].get('lry') == '5751'
+    assert left[3].get('uly') == '4189'
+    assert left[3].get('lrx') == '1341'
+    assert left[3].get('lry') == '5467'
 
     assert left[4].get('ulx') == '0'
-    assert left[4].get('uly') == '5751'
-    assert left[4].get('lrx') == '1072'
-    assert left[4].get('lry') == '7104'
+    assert left[4].get('uly') == '5467'
+    assert left[4].get('lrx') == '1341'
+    assert left[4].get('lry') == '6745'
 
 def test_no_margin():
     f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0005.xml'
