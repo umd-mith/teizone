@@ -36,9 +36,9 @@ def test_left_margin():
 
     main = doc.find('{%s}zone[@type="main"]' % TEI)
     assert main is not None
-    assert main.get('ulx') == '670'
+    assert main.get('ulx') == '1341'
     assert main.get('uly') == '355'
-    assert main.get('lrx') == '4693'
+    assert main.get('lrx') == '4023'
     assert main.get('lry') == '6748'
 
     # check left margin zones
@@ -71,6 +71,16 @@ def test_left_margin():
     assert left[4].get('lrx') == '1341'
     assert left[4].get('lry') == '6745'
 
+    # check library
+
+    library = doc.findall('{%s}zone[@type="library"]' % TEI)
+    assert len(library) == 1
+
+    assert library[0].get('ulx') == '4827'
+    assert library[0].get('uly') == '0'
+    assert library[0].get('lrx') == '5364'
+    assert library[0].get('lry') == '355'
+
 def test_no_margin():
     f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0005.xml'
     assert_no_coordinates(f1)
@@ -82,6 +92,14 @@ def test_no_margin():
     fh, f2 = tempfile.mkstemp()
     s.guess_coordinates()
     s.save(f2)
+    doc = etree.parse(f2)
+
+    main = doc.find('{%s}zone[@type="main"]' % TEI)
+    assert main is not None
+    assert main.get('ulx') == '636'
+    assert main.get('uly') == '354'
+    assert main.get('lrx') == '4452'
+    assert main.get('lry') == '6727'
 
 def test_no_main():
     f1 = 'test-data/ox-ms_abinger_c56/ox-ms_abinger_c56-0133.xml'

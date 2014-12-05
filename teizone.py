@@ -60,11 +60,6 @@ class Surface():
 
         y = self.uly
 
-        # determine x of left margin if we have zones in the left margin
-        left_margin_x = 0 
-        if len(left_margin) > 0:
-            left_margin_x = int(self.lrx * .125)
-
         # set coordinates of pagination
         if pagination is not None:
             ulx = int(self.lrx * .8)
@@ -77,16 +72,12 @@ class Surface():
             s(pagination, 'lry', lry , overwrite)
             y = lry
 
-        # TODO: where do we place library zone?
+        # library zone
         if library is not None:
-            pass 
-
-        # set coordinates for main
-        if main is not None:
-            s(main, 'ulx', left_margin_x, overwrite)
-            s(main, 'uly', int(self.lry * .05), overwrite)
-            s(main, 'lrx', int(self.lrx * .875), overwrite)
-            s(main, 'lry', int(self.lry * .95), overwrite)
+            s(library, 'ulx', int(.9 * self.lrx), overwrite)
+            s(library, 'uly', 0, overwrite)
+            s(library, 'lrx', self.lrx, overwrite)
+            s(library, 'lry', int(.05 * self.lry), overwrite)
 
         # set coordinates of left margin zones
         if len(left_margin) > 0:
@@ -94,12 +85,24 @@ class Surface():
             margin_height = int((.9 / len(left_margin)) * self.lry)
             lrx = int(.25 * self.lrx)
             for z in left_margin:
-                print y
                 s(z, 'ulx', 0, overwrite)
                 s(z, 'uly', y, overwrite)
                 s(z, 'lrx', lrx, overwrite)
                 s(z, 'lry', y + margin_height, overwrite)
                 y += margin_height
+
+        # set coordinates for main, which are different if there is a margin
+        if main is not None:
+            if len(left_margin) == 0:
+                left = .125
+                right = .875
+            else:
+                left = .25
+                right = .75
+            s(main, 'ulx', int(self.lrx * left), overwrite)
+            s(main, 'uly', int(self.lry * .05), overwrite)
+            s(main, 'lrx', int(self.lrx * right), overwrite)
+            s(main, 'lry', int(self.lry * .95), overwrite)
 
 def s(o, prop, val, overwrite=False):
     """
