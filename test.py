@@ -38,7 +38,7 @@ def test_left_margin():
     assert main is not None
     assert main.get('ulx') == '1341'
     assert main.get('uly') == '355'
-    assert main.get('lrx') == '4023'
+    assert main.get('lrx') == '5364'
     assert main.get('lry') == '6748'
 
     # check left margin zones
@@ -98,7 +98,7 @@ def test_no_margin():
     assert main is not None
     assert main.get('ulx') == '636'
     assert main.get('uly') == '354'
-    assert main.get('lrx') == '4452'
+    assert main.get('lrx') == '5088'
     assert main.get('lry') == '6727'
 
 def test_no_main():

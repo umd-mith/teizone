@@ -95,13 +95,11 @@ class Surface():
         if main is not None:
             if len(left_margin) == 0:
                 left = .125
-                right = .875
             else:
                 left = .25
-                right = .75
             s(main, 'ulx', int(self.lrx * left), overwrite)
             s(main, 'uly', int(self.lry * .05), overwrite)
-            s(main, 'lrx', int(self.lrx * right), overwrite)
+            s(main, 'lrx', int(self.lrx), overwrite)
             s(main, 'lry', int(self.lry * .95), overwrite)
 
 def s(o, prop, val, overwrite=False):
